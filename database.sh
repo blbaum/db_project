@@ -20,58 +20,74 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 
 CREATE TABLE Artist (
-    ArtistId INT PRIMARY KEY,
-    ArtistName VARCHAR(100),
-    Genre VARCHAR(50)
+    ArtistId INT AUTO_INCREMENT PRIMARY KEY,
+    ArtistName VARCHAR(100) NOT NULL,
+    Genre VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Concert (
-    ConcertId INT PRIMARY KEY,
-    VenueName VARCHAR(100),
-    City VARCHAR(50),
-    ConcertDate DATE,
-    ArtistId INT,
+    ConcertId INT AUTO_INCREMENT PRIMARY KEY,
+    VenueName VARCHAR(100) NOT NULL,
+    City VARCHAR(50) NOT NULL,
+    ConcertDate DATE NOT NULL,
+    ArtistId INT NOT NULL,
     FOREIGN KEY (ArtistId) REFERENCES Artist(ArtistId)
 );
 
 CREATE TABLE Customer (
-    CustomerId INT PRIMARY KEY,
-    CustomerName VARCHAR(100)
+    CustomerId INT AUTO_INCREMENT PRIMARY KEY,
+    CustomerName VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Ticket (
-    TicketId INT PRIMARY KEY,
-    ConcertId INT,
-    CustomerId INT,
-    SeatNumber VARCHAR(20),
-    Price DECIMAL(10,2),
+    TicketId INT AUTO_INCREMENT PRIMARY KEY,
+    ConcertId INT NOT NULL,
+    CustomerId INT NOT NULL,
+    SeatNumber VARCHAR(20) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
 
     FOREIGN KEY (ConcertId) REFERENCES Concert(ConcertId),
     FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+
+    UNIQUE (ConcertId, SeatNumber)
 );
 
 -- ARTIST
-INSERT INTO Artist VALUES (1, 'SZA', 'R&B');
-INSERT INTO Artist VALUES (2, 'Tame Impala', 'Alternative');
-INSERT INTO Artist VALUES (3, 'Sabrina Carpenter', 'Pop');
-INSERT INTO Artist VALUES (4, 'The Weeknd', 'R&B');
+INSERT INTO Artist (ArtistName, Genre) VALUES ('SZA', 'R&B');
+INSERT INTO Artist (ArtistName, Genre) VALUES ('Tame Impala', 'Alternative');
+INSERT INTO Artist (ArtistName, Genre) VALUES ('Sabrina Carpenter', 'Pop');
+INSERT INTO Artist (ArtistName, Genre) VALUES ('The Weeknd', 'R&B');
 
 -- CONCERT
-INSERT INTO Concert VALUES (1, 'River Stage', 'Chicago', '2026-06-01', 2);
-INSERT INTO Concert VALUES (2, 'Starlight Arena', 'New York', '2026-05-10', 1);
-INSERT INTO Concert VALUES (3, 'Blue Note Club', 'New Orleans', '2026-07-01', 4);
-INSERT INTO Concert VALUES (4, 'Skyline Hall', 'Los Angeles', '2026-06-15', 3);
+INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
+VALUES ('River Stage', 'Chicago', '2026-06-01', 2);
+
+INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
+VALUES ('Starlight Arena', 'New York', '2026-05-10', 1);
+
+INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
+VALUES ('Blue Note Club', 'New Orleans', '2026-07-01', 4);
+
+INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
+VALUES ('Skyline Hall', 'Los Angeles', '2026-06-15', 3);
 
 -- CUSTOMER
-INSERT INTO Customer VALUES (1, 'John Cena');
-INSERT INTO Customer VALUES (2, 'Satoru Gojo');
-INSERT INTO Customer VALUES (3, 'Kareem Sanchez');
-INSERT INTO Customer VALUES (4, 'Max Verstappen');
+INSERT INTO Customer (CustomerName) VALUES ('John Cena');
+INSERT INTO Customer (CustomerName) VALUES ('Satoru Gojo');
+INSERT INTO Customer (CustomerName) VALUES ('Kareem Sanchez');
+INSERT INTO Customer (CustomerName) VALUES ('Max Verstappen');
 
 -- TICKET
-INSERT INTO Ticket VALUES (1, 1, 1, 'A1', 120.00);
-INSERT INTO Ticket VALUES (2, 1, 2, 'A2', 120.00);
-INSERT INTO Ticket VALUES (3, 2, 3, 'B5', 95.00);
-INSERT INTO Ticket VALUES (4, 3, 4, 'C10', 150.00);
+INSERT INTO Ticket (ConcertId, CustomerId, SeatNumber, Price)
+VALUES (1, 1, 'A1', 120.00);
+
+INSERT INTO Ticket (ConcertId, CustomerId, SeatNumber, Price)
+VALUES (1, 2, 'A2', 120.00);
+
+INSERT INTO Ticket (ConcertId, CustomerId, SeatNumber, Price)
+VALUES (2, 3, 'B5', 95.00);
+
+INSERT INTO Ticket (ConcertId, CustomerId, SeatNumber, Price)
+VALUES (3, 4, 'C10', 150.00);
 
 EOFMYSQL
