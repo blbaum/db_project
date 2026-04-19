@@ -47,7 +47,7 @@ CREATE TABLE Ticket (
     Price DECIMAL(10,2) NOT NULL,
 
     FOREIGN KEY (ConcertId) REFERENCES Concert(ConcertId),
-    FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+    FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId),
 
     UNIQUE (ConcertId, SeatNumber)
 );
