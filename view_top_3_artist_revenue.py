@@ -25,12 +25,6 @@ try:
 
     res = python_db.executeSelect(query)
     print(res)
-    # res = res.split('\n')  # split the header and data for printing
-    # print("<br/>" + "<br/>")
-    # print("<br/>" + "Table Artist after:"+"<br/>" +
-    #       res[0] + "<br/>"+res[1] + "<br/>")
-    # for i in range(len(res)-2):
-    #     print(res[i+2]+"<br/>")
     python_db.close_db()  # close db
 except Exception as e:
     logging.error(traceback.format_exc())
