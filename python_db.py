@@ -36,14 +36,6 @@ def insert(table, values):
     cursor.execute(query)
     conn.commit()
 
-
-def nextId(table):
-    query = "select IFNULL(max(ID), 0) as max_id from " + table
-    cursor.execute(query)
-    result = cursor.fetchall()[0][0]
-    return 1 if result is None else int(result) + 1
-
-
 def executeUpdate(query):  # use this function for delete and update
     cursor.execute(query)
     conn.commit()

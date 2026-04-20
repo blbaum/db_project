@@ -60,16 +60,17 @@ INSERT INTO Artist (ArtistName, Genre) VALUES ('The Weeknd', 'R&B');
 
 -- CONCERT
 INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
+VALUES ('Starlight Arena', 'New York', '2026-05-10', 1);
+
+INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
 VALUES ('River Stage', 'Chicago', '2026-06-01', 2);
 
 INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
-VALUES ('Starlight Arena', 'New York', '2026-05-10', 1);
+VALUES ('Skyline Hall', 'Los Angeles', '2026-06-15', 3);
 
 INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
 VALUES ('Blue Note Club', 'New Orleans', '2026-07-01', 4);
 
-INSERT INTO Concert (VenueName, City, ConcertDate, ArtistId)
-VALUES ('Skyline Hall', 'Los Angeles', '2026-06-15', 3);
 
 -- CUSTOMER
 INSERT INTO Customer (CustomerName) VALUES ('John Cena');
