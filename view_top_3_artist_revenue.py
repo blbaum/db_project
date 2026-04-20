@@ -12,12 +12,18 @@ try:
                             mysql_password, mysql_username)  # open database
     
     # insert into item tables by getting the values passed from PHP
-    customer_name = sys.argv[1]
 
-    values = "'"+ customer_name + "'"
+    query = """
+        SELECT Artist.ArtistName, SUM(Ticket.Price) AS TotalRevenue
+        FROM Artist
+        JOIN Concert ON Artist.ArtistId = Concert.ArtistId
+        JOIN Ticket ON Concert.ConcertId = Ticket.ConcertId
+        GROUP BY Artist.ArtistId, Artist.ArtistName
+        ORDER BY TotalRevenue DESC
+        LIMIT 3;
+        """
 
-    python_db.insert("Customer (CustomerName)", values)
-    res = python_db.executeSelect('SELECT * FROM Customer;')
+    res = python_db.executeSelect(query)
     print(res)
     # res = res.split('\n')  # split the header and data for printing
     # print("<br/>" + "<br/>")
@@ -29,4 +35,4 @@ try:
 except Exception as e:
     logging.error(traceback.format_exc())
 
-# Use python3 add_new_customer.py "Customer Name"
+# Use python3 view_top_3_artist_revenue.py

@@ -12,12 +12,16 @@ try:
                             mysql_password, mysql_username)  # open database
     
     # insert into item tables by getting the values passed from PHP
-    customer_name = sys.argv[1]
+    if len(sys.argv) < 2:
+        customer_id = "null"
+    else:
+        customer_id = sys.argv[1]
 
-    values = "'"+ customer_name + "'"
-
-    python_db.insert("Customer (CustomerName)", values)
-    res = python_db.executeSelect('SELECT * FROM Customer;')
+    if customer_id.lower() == "null":
+        res = python_db.executeSelect('SELECT CustomerName, Customer.CustomerID, Sum(Price) as TotalSpent FROM Ticket JOIN Customer ON Ticket.CustomerId = Customer.CustomerId GROUP BY Customer.CustomerId;')
+    else:
+        res = python_db.executeSelect('SELECT CustomerName, Customer.CustomerID, Sum(Price) as TotalSpent FROM Ticket JOIN Customer ON Ticket.CustomerId = Customer.CustomerId WHERE Customer.CustomerId = ' + customer_id + ' GROUP BY Customer.CustomerId;')
+    
     print(res)
     # res = res.split('\n')  # split the header and data for printing
     # print("<br/>" + "<br/>")
@@ -29,4 +33,4 @@ try:
 except Exception as e:
     logging.error(traceback.format_exc())
 
-# Use python3 add_new_customer.py "Customer Name"
+# Use python3 view_customer_spending.py
