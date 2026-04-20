@@ -36,7 +36,6 @@
     <?php
     if (isset($_POST['submit'])) 
     {
-        // Escape shell arguments for security
         $venue_name = escapeshellarg($_POST['venue_name']);
         $city = escapeshellarg($_POST['city']);
         $concert_date = escapeshellarg($_POST['concert_date']);
