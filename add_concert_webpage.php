@@ -1,38 +1,39 @@
 <html>
 <head>
     <title>Add New Concert</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Add a New Concert</h2>
-    <a href="home_webpage.php">Back to Home</a>
-    <br><br>
-
-    <form action="add_concert_webpage.php" method="post">
-        Venue Name: <input type="text" name="venue_name" required><br>
-        City: <input type="text" name="city" required><br>
-        Concert Date (YYYY-MM-DD): <input type="text" name="concert_date" required><br>
-        Artist: 
-        <select name="artist_id" required>
-            <option value="">-- Select an Artist --</option>
-            <?php
-            $mysqli = new mysqli('localhost', 'lsilva', 'iubaoXu1', 'lsilva');
-            
-            if ($mysqli->connect_error) {
-                die('Connection failed: ' . $mysqli->connect_error);
-            }
-            
-            $result = $mysqli->query('SELECT ArtistId, ArtistName FROM Artist ORDER BY ArtistName');
-            
-            while ($row = $result->fetch_assoc()) {
-                echo '<option value="' . $row['ArtistId'] . '">' . htmlspecialchars($row['ArtistName']) . '</option>';
-            }
-            
-            $mysqli->close();
-            ?>
-        </select><br>
-        <input name="submit" type="submit" value="Add Concert">
-    </form>
-
+    <div class="container"> 
+        <h2>Add a New Concert - 🎤 </h2>
+        <a href="home_webpage.php" class="item"> Back to Home - 🏠</a>        
+            <form action="add_concert_webpage.php" method="post">
+                Venue Name: <input type="text" name="venue_name" required><br>
+                City: <input type="text" name="city" required><br>
+                Concert Date (YYYY-MM-DD): <input type="text" name="concert_date" required><br>
+                Artist: 
+                <select name="artist_id" required>
+                    <option value="">-- Select an Artist --</option>
+                    <?php
+                $mysqli = new mysqli('localhost', 'lsilva', 'iubaoXu1', 'lsilva');
+                
+                if ($mysqli->connect_error) {
+                    die('Connection failed: ' . $mysqli->connect_error);
+                    }
+                    
+                    $result = $mysqli->query('SELECT ArtistId, ArtistName FROM Artist ORDER BY ArtistName');
+                    
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<option value="' . $row['ArtistId'] . '">' . htmlspecialchars($row['ArtistName']) . '</option>';
+                        }
+                        
+                        $mysqli->close();
+                        ?>
+            </select><br>
+            <input name="submit" type="submit" value="Add Concert">
+        </form>
+    </div>
+    
     <?php
     if (isset($_POST['submit'])) 
     {
