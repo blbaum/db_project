@@ -22,17 +22,17 @@ try:
     python_db.insert("Concert (VenueName, City, ConcertDate, ArtistId)", values)
     res = python_db.executeSelect('SELECT * FROM Concert;')
     print(res)
-    # res = res.split('\n')  # split the header and data for printing
-    # print("<br/>" + "<br/>")
-    # print("<br/>" + "Table Artist after:"+"<br/>" +
-    #       res[0] + "<br/>"+res[1] + "<br/>")
-    # for i in range(len(res)-2):
-    #     print(res[i+2]+"<br/>")
+    res = res.split('\n')  # split the header and data for printing
+    print("<br/>" + "<br/>")
+    print("<br/>" + "Concerts:"+"<br/>" +
+          res[0] + "<br/>"+res[1] + "<br/>")
+    for i in range(len(res)-2):
+        print(res[i+2]+"<br/>")
     python_db.close_db()  # close db
 except Exception as e:
     logging.error(traceback.format_exc())
 
-# Use python3 add_new_artist.py "Venue Name" "City" "Year-Month-Day" "Existing Artist ID" in the terminal to test
+# Use python3 add_new_concert.py "Venue Name" "City" "Year-Month-Day" "Existing Artist ID" in the terminal to test
 
 # <select name="artist_id">
 #   <option value="1">SZA</option>
