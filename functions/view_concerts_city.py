@@ -1,7 +1,7 @@
 import sys
 import traceback
 import logging
-import python_db
+import python_db as python_db
 
 
 mysql_username = 'lsilva'  # please change to your username
@@ -12,18 +12,19 @@ try:
                             mysql_password, mysql_username)  # open database
     
     # insert into item tables by getting the values passed from PHP
-    concert_id = sys.argv[1]
-    customer_id = sys.argv[2]
-    seat_number = sys.argv[3]
-    price = sys.argv[4]
+    if len(sys.argv) < 2:
+        city = "null"
+    else:
+        city = sys.argv[1]
 
-    values = "'"+ concert_id + "','" + customer_id + "','" + seat_number + "','" + price + "'"
-
-    python_db.insert("Ticket (ConcertID, CustomerID, SeatNumber, Price)", values)
-    res = python_db.executeSelect('SELECT * FROM Ticket;')
+    if city.lower() == "null":
+        res = python_db.executeSelect('SELECT * FROM Concert;')
+    else:
+        res = python_db.executeSelect("SELECT * FROM Concert WHERE City = '" + city + "';")
+    
     print(res)
     python_db.close_db()  # close db
 except Exception as e:
     logging.error(traceback.format_exc())
 
-# Use python3 add_new_ticket.py "Exisiting ConcertID" "Existing CustomerID" "Seat Number" "Price (ex: 123.45)"
+# Use python3 view_concerts_in_city.py "Null" for all cities or "City" for specific city

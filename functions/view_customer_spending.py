@@ -1,7 +1,7 @@
 import sys
 import traceback
 import logging
-import python_db
+import python_db as python_db
 
 
 mysql_username = 'lsilva'  # please change to your username

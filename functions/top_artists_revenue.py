@@ -1,7 +1,7 @@
 import sys
 import traceback
 import logging
-import python_db
+import python_db as python_db
 
 
 mysql_username = 'lsilva'  # please change to your username
@@ -12,9 +12,16 @@ try:
                             mysql_password, mysql_username)  # open database
     
     # insert into item tables by getting the values passed from PHP
-    artist_id = sys.argv[1]
 
-    query = "SELECT ArtistName, VenueName, City, ConcertDate FROM Artist JOIN Concert ON Artist.ArtistId = Concert.ArtistId WHERE Artist.ArtistId = " + artist_id + ";"
+    query = """
+        SELECT Artist.ArtistName, SUM(Ticket.Price) AS TotalRevenue
+        FROM Artist
+        JOIN Concert ON Artist.ArtistId = Concert.ArtistId
+        JOIN Ticket ON Concert.ConcertId = Ticket.ConcertId
+        GROUP BY Artist.ArtistId, Artist.ArtistName
+        ORDER BY TotalRevenue DESC
+        LIMIT 3;
+        """
 
     res = python_db.executeSelect(query)
     print(res)
@@ -22,4 +29,4 @@ try:
 except Exception as e:
     logging.error(traceback.format_exc())
 
-# Use python3 view_concerts_per_artist "Existing ArtistID"
+# Use python3 view_top_3_artist_revenue.py
