@@ -19,7 +19,7 @@ try:
 
     python_db.insert("Concert (VenueName, City, ConcertDate, ArtistId)", values)
     res = python_db.executeSelect('SELECT * FROM Concert;')
-    print("<h3>Concerts:</h3>")
+    print("<h3 class='container'>Concerts:</h3>")
     print(res)
     python_db.close_db()  # close db
 except Exception as e:
