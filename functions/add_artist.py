@@ -3,13 +3,8 @@ import traceback
 import logging
 import python_db as python_db
 
-
-mysql_username = 'lsilva'  # please change to your username
-mysql_password = 'iubaoXu1'  # please change to your MySQL password
-
 try:
-    python_db.open_database('localhost', mysql_username,
-                            mysql_password, mysql_username)  # open database
+    python_db.open_database()   # open database
     
     # insert into item tables by getting the values passed from PHP
     name = sys.argv[1]

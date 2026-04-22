@@ -8,7 +8,7 @@
         <h2>View Customer Spending 💰 </h2>
         <a href="home_webpage.php" class="item"> Back to Home 🏠</a>        
         <form action="view_customer_spending_webpage.php" method="post">
-            <input name="submit" type="submit" value="Add Concert">
+            <input name="submit" type="submit" value="View Spending">
         </form>
     </div>
     
