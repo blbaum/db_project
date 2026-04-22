@@ -1,18 +1,15 @@
 import sys
 import traceback
 import logging
-import python_db
-
-
-mysql_username = 'lsilva'  # please change to your username
-mysql_password = 'iubaoXu1'  # please change to your MySQL password
+import python_db as python_db
 
 try:
-    python_db.open_database('localhost', mysql_username,
-                            mysql_password, mysql_username)  # open database
+    python_db.open_database()   # open database
     
     # insert into item tables by getting the values passed from PHP
     customer_name = sys.argv[1]
+
+    customer_name = customer_name.replace("'", "''")
 
     values = "'"+ customer_name + "'"
 

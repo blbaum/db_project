@@ -1,35 +1,42 @@
 import mysql.connector
-from tabulate import tabulate
+import json
+import os
+from html import escape
 
+_creds_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'credentials.json')
+with open(_creds_path, 'r') as chud:
+    creds = json.load(chud)
 
-def open_database(hostname, user_name, mysql_pw, database_name):
+host=creds["hostname"]
+user=creds["user"]
+password=creds["password"]
+database=creds["database"]
+
+def open_database():
     global conn
-    conn = mysql.connector.connect(host=hostname,
-                                   user=user_name,
-                                   password=mysql_pw,
-                                   database=database_name
-                                   )
+    conn = mysql.connector.connect(host=host,
+                                user=user,
+                                password=password,
+                                database=database
+                                )
     global cursor
     cursor = conn.cursor()
 
-
-def printFormat(result):
-    header = []
-    for cd in cursor.description:  # get headers
-        header.append(cd[0])
-    print('')
-    print('Query Result:')
-    print('')
-    return(tabulate(result, headers=header))  # print results in table format
-
-# select and display query
-
-
 def executeSelect(query):
     cursor.execute(query)
-    res = printFormat(cursor.fetchall())
-    return res
-
+    rows = cursor.fetchall()
+    headers = [cd[0] for cd in cursor.description]
+    if not rows:
+        return "<p>Query returned nothing.</p>"
+    html = ['<table border="1" class="container"><tr>']
+    html += [f"<th>{escape(h)}</th>" for h in headers]
+    html.append("</tr>")
+    for row in rows:
+        html.append("<tr>")
+        html += [f"<td>{escape(str(v))}</td>" for v in row]
+        html.append("</tr>")
+    html.append("</table>")
+    return "".join(html)
 
 def insert(table, values):
     query = "INSERT into " + table + " values (" + values + ")" + ';'
@@ -44,17 +51,3 @@ def executeUpdate(query):  # use this function for delete and update
 def close_db():  # use this function to close db
     cursor.close()
     conn.close()
-
-
-###   TEST #####
-# mysql_username = 'replaceIt' # please change to your MySQL username
-# mysql_password ='replaceIt'  # please change to your MySQL password
-# open_database('localhost',mysql_username,mysql_password,mysql_username) # open database   
-# executeSelect('SELECT * FROM ITEM'); # This is just a sample test, replace with your query
-# insert('ITEM',"'jbg',22,23.5,1 ")# This is just a sample test, replace with your query
-# executeSelect('SELECT * FROM ITEM where supplier_id = 22;')# checking if the value is updated
-# executeUpdate('delete from ITEM where supplier_id = 22;')# testing delete
-# executeSelect('SELECT * FROM ITEM where supplier_id = 22;')# checking if the id = 22 does not exist
-# # executeUpdate("Update SUPPLIER set supplier_id = 20 where address ='Yemen';")# testing update
-# # executeSelect("SELECT * FROM SUPPLIER where address = 'Yemen';")# checking the updated value
-# close_db()# close database

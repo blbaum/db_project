@@ -1,15 +1,13 @@
+import os
 import sys
 import traceback
 import logging
-import python_db
 
-
-mysql_username = 'lsilva'  # please change to your username
-mysql_password = 'iubaoXu1'  # please change to your MySQL password
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import python_db as python_db
 
 try:
-    python_db.open_database('localhost', mysql_username,
-                            mysql_password, mysql_username)  # open database
+    python_db.open_database()   # open database
     
     # insert into item tables by getting the values passed from PHP
     venue_name = sys.argv[1]
@@ -17,17 +15,16 @@ try:
     concert_date = sys.argv[3]
     artist_id = sys.argv[4]
 
+    # Escape single quotes for SQL
+    venue_name = venue_name.replace("'", "''")
+    city = city.replace("'", "''")
+
     values = "'"+ venue_name + "','" + city + "','" + concert_date + "','" + artist_id + "'"
 
     python_db.insert("Concert (VenueName, City, ConcertDate, ArtistId)", values)
     res = python_db.executeSelect('SELECT * FROM Concert;')
+    print("<h3 class='container'>Concerts:</h3>")
     print(res)
-    res = res.split('\n')  # split the header and data for printing
-    print("<br/>" + "<br/>")
-    print("<br/>" + "Concerts:"+"<br/>" +
-          res[0] + "<br/>"+res[1] + "<br/>")
-    for i in range(len(res)-2):
-        print(res[i+2]+"<br/>")
     python_db.close_db()  # close db
 except Exception as e:
     logging.error(traceback.format_exc())
