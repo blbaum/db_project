@@ -1,12 +1,12 @@
 <html>
 <head>
-    <title>Add New Concert</title>
+    <title>🎤 Add Concert</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container"> 
-        <h2>Add a New Concert - 🎤 </h2>
-        <a href="home_webpage.php" class="item"> Back to Home - 🏠</a>        
+        <h2>Add a New Concert 🎤 </h2>
+        <a href="home_webpage.php" class="item"> Back to Home 🏠</a>        
             <form action="add_concert_webpage.php" method="post">
                 Venue Name: <input type="text" name="venue_name" required><br>
                 City: <input type="text" name="city" required><br>
@@ -42,7 +42,7 @@
         $concert_date = escapeshellarg($_POST['concert_date']);
         $artist_id = escapeshellarg($_POST['artist_id']);
 
-        $command = 'python3 add_new_concert.py ' . $venue_name . ' ' . $city . ' ' . $concert_date . ' ' . $artist_id;
+        $command = 'python3 add_concert.py ' . $venue_name . ' ' . $city . ' ' . $concert_date . ' ' . $artist_id;
 
         // Remove dangerous characters from command to protect web server
         $escaped_command = escapeshellcmd($command);

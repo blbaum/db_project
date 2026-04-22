@@ -1,6 +1,4 @@
 import mysql.connector
-from tabulate import tabulate
-
 
 def open_database(hostname, user_name, mysql_pw, database_name):
     global conn
@@ -27,7 +25,7 @@ def printFormat(result):
 
 def executeSelect(query):
     cursor.execute(query)
-    res = printFormat(cursor.fetchall())
+    # res = printFormat(cursor.fetchall())
     return res
 
 
