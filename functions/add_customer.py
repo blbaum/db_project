@@ -9,6 +9,8 @@ try:
     # insert into item tables by getting the values passed from PHP
     customer_name = sys.argv[1]
 
+    customer_name = customer_name.replace("'", "''")
+
     values = "'"+ customer_name + "'"
 
     python_db.insert("Customer (CustomerName)", values)

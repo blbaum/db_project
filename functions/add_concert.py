@@ -15,6 +15,10 @@ try:
     concert_date = sys.argv[3]
     artist_id = sys.argv[4]
 
+    # Escape single quotes for SQL
+    venue_name = venue_name.replace("'", "''")
+    city = city.replace("'", "''")
+
     values = "'"+ venue_name + "','" + city + "','" + concert_date + "','" + artist_id + "'"
 
     python_db.insert("Concert (VenueName, City, ConcertDate, ArtistId)", values)

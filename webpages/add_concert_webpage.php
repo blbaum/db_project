@@ -10,7 +10,7 @@
             <form action="add_concert_webpage.php" method="post" class="form">
                 Venue Name: <input type="text" name="venue_name" required><br>
                 City: <input type="text" name="city" required><br>
-                Concert Date (YYYY-MM-DD): <input type="text" name="concert_date" required><br>
+                Concert Date (YYYY-MM-DD): <input type="date" name="concert_date" required><br>
                 Artist: 
                 <select name="artist_id" required>
                     <option value="">-- Select an Artist --</option>
@@ -42,12 +42,9 @@
 
         // for bryant to run:
         // $command = '/Users/bryant/Database/DBMS/5hw/db_project/venv/bin/python3 ' . escapeshellarg($script) . ' ' . $venue_name . ' ' . $city . ' ' . $concert_date . ' ' . $artist_id;
-
-        // Remove dangerous characters from command to protect web server
-        $escaped_command = escapeshellcmd($command);
-        echo "<p class=container>New concert added - Venue: $venue_name, City: $city, Date: $concert_date, Artist ID: $artist_id</p>"; 
         
-        $output = shell_exec($escaped_command . ' 2>&1');
+        echo "<p class=container>New concert added - Venue: $venue_name, City: $city, Date: $concert_date, Artist ID: $artist_id</p>";
+        $output = shell_exec($command . ' 2>&1');
         echo $output;           
     }
     ?>

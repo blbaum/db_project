@@ -10,6 +10,9 @@ try:
     name = sys.argv[1]
     genre = sys.argv[2]
 
+    name = name.replace("'", "''")
+    genre = genre.replace("'", "''")
+
     values = "'"+ name + "','" + genre + "'"
 
     python_db.insert("Artist (ArtistName, Genre)", values)
