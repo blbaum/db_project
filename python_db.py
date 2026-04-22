@@ -1,31 +1,42 @@
 import mysql.connector
 import json
+import os
+from html import escape
 
-with open('credentials.json', 'r') as fart:
-    creds = json.load(fart)
+_creds_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'credentials.json')
+with open(_creds_path, 'r') as chud:
+    creds = json.load(chud)
 
 host=creds["hostname"]
 user=creds["user"]
 password=creds["password"]
 database=creds["database"]
 
-print(host)
-print(user)
-print(password)
-print(database)
-
-def open_database(hostname=host, user_name=user, mysql_pw=password, database_name=database):
+def open_database():
     global conn
-    conn = mysql.connector.connect(host=hostname,
-                                   user=user_name,
-                                   password=mysql_pw,
-                                   database=database_name
-                                   )
+    conn = mysql.connector.connect(host=host,
+                                user=user,
+                                password=password,
+                                database=database
+                                )
     global cursor
     cursor = conn.cursor()
 
 def executeSelect(query):
-    return cursor.execute(query)
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    headers = [cd[0] for cd in cursor.description]
+    if not rows:
+        return "<p>Query returned nothing.</p>"
+    html = ['<table border="1"><tr>']
+    html += [f"<th>{escape(h)}</th>" for h in headers]
+    html.append("</tr>")
+    for row in rows:
+        html.append("<tr>")
+        html += [f"<td>{escape(str(v))}</td>" for v in row]
+        html.append("</tr>")
+    html.append("</table>")
+    return "".join(html)
 
 def insert(table, values):
     query = "INSERT into " + table + " values (" + values + ")" + ';'

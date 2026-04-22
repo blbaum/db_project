@@ -54,3 +54,9 @@ a:hover
     font-size: 2em;
     border:rgba(0, 0, 0, 1);
 }
+
+.form
+{
+    display: flex;
+    flex-direction: column;
+}

@@ -1,6 +1,9 @@
+import os
 import sys
 import traceback
 import logging
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import python_db as python_db
 
 try:
@@ -16,13 +19,8 @@ try:
 
     python_db.insert("Concert (VenueName, City, ConcertDate, ArtistId)", values)
     res = python_db.executeSelect('SELECT * FROM Concert;')
+    print("<h3>Concerts:</h3>")
     print(res)
-    res = res.split('\n')  # split the header and data for printing
-    print("<br/>" + "<br/>")
-    print("<br/>" + "Concerts:"+"<br/>" +
-          res[0] + "<br/>"+res[1] + "<br/>")
-    for i in range(len(res)-2):
-        print(res[i+2]+"<br/>")
     python_db.close_db()  # close db
 except Exception as e:
     logging.error(traceback.format_exc())
