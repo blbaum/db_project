@@ -7,27 +7,25 @@
     <div class="container"> 
         <h2>Add a New Artist 🖌️ </h2>
         <a href="home_webpage.php" class="item"> Back to Home 🏠</a>        
-        <form action="add_artist_webpage.php" method="post">
-            <input name="submit" type="submit" value="Add Artist">
-        </form>
+            <form action="add_artist_webpage.php" method="post" class = "form">
+                Artist Name: <input type="text" name="artist_name" placeholder="Michael Jackson" required><br>
+                Genre: <input type="text" name="genre" placeholder="Pop" required><br>
+                <input name="submit" type="submit" value="Add Artist">
+            </form>
     </div>
     
     <?php
     if (isset($_POST['submit'])) 
     {
-        // $venue_name = escapeshellarg($_POST['venue_name']);
-        // $city = escapeshellarg($_POST['city']);
-        // $concert_date = escapeshellarg($_POST['concert_date']);
-        // $artist_id = escapeshellarg($_POST['artist_id']);
+        $artist_name = escapeshellarg($_POST['artist_name']);
+        $genre = escapeshellarg($_POST['genre']);
 
-        $command = 'python3 add_artist.py ';
-
-        // Remove dangerous characters from command to protect web server
-        $escaped_command = escapeshellcmd($command);
-        echo "<p>New artist added - </p>"; 
+        $script = dirname(__DIR__) . '/functions/add_artist.py';
+        $command = 'python3 ' . escapeshellarg($script) . ' ' . $artist_name . ' ' . $genre;
         
-        $output = shell_exec($escaped_command . ' 2>&1');
-        // echo $output;           
+        echo "<p class='container'>New artist added - Name: $artist_name, Genre: $genre</p>";
+        $output = shell_exec($command . ' 2>&1');
+        echo $output;                 
     }
     ?>
 
