@@ -1,6 +1,9 @@
+import os
 import sys
 import traceback
 import logging
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import python_db as python_db
 
 try:
@@ -15,6 +18,7 @@ try:
 
     python_db.insert("Customer (CustomerName)", values)
     res = python_db.executeSelect('SELECT * FROM Customer;')
+    print("<h3 class='container'>Customers:</h3>")
     print(res)
     python_db.close_db()  # close db
 except Exception as e:

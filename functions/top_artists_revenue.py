@@ -22,7 +22,7 @@ try:
         """
 
     res = python_db.executeSelect(query)
-    print("<h3 class='container'>Concerts:</h3>")
+    print("<h3 class='container'>Top 3 Artists by Revenue:</h3>")
     print(res)
     python_db.close_db()  # close db
 except Exception as e:

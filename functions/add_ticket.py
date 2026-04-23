@@ -1,6 +1,9 @@
+import os
 import sys
 import traceback
 import logging
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import python_db as python_db
 
 try:
@@ -15,7 +18,9 @@ try:
     values = "'"+ concert_id + "','" + customer_id + "','" + seat_number + "','" + price + "'"
 
     python_db.insert("Ticket (ConcertID, CustomerID, SeatNumber, Price)", values)
+    # Can probably make this prettier by doing a join to show concert and customer info instead of just IDs
     res = python_db.executeSelect('SELECT * FROM Ticket;')
+    print("<h3 class='container'>Tickets:</h3>")
     print(res)
     python_db.close_db()  # close db
 except Exception as e:

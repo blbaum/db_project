@@ -30,8 +30,3 @@ except Exception as e:
     logging.error(traceback.format_exc())
 
 # Use python3 add_new_concert.py "Venue Name" "City" "Year-Month-Day" "Existing Artist ID" in the terminal to test
-
-# <select name="artist_id">
-#   <option value="1">SZA</option>
-#   <option value="2">Tame Impala</option>
-# </select>
