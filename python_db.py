@@ -27,7 +27,7 @@ def executeSelect(query):
     rows = cursor.fetchall()
     headers = [cd[0] for cd in cursor.description]
     if not rows:
-        return "<p>Query returned nothing.</p>"
+        return '<table border="1" class="container"><tr><td>No results found</td></tr></table>'
     html = ['<table border="1" class="container"><tr>']
     html += [f"<th>{escape(h)}</th>" for h in headers]
     html.append("</tr>")

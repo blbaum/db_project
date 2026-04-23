@@ -34,7 +34,6 @@
         $script = dirname(__DIR__) . '/functions/view_concerts_artist.py';
         $command = 'python3 ' . escapeshellarg($script) . ' ' . $artist_id;
 
-        # Looks pretty ugly if query returns nothing
         echo "<p class='container'>Concerts for Artist ID $artist_id:</p>";
         $output = shell_exec($command . ' 2>&1');
         echo $output;
