@@ -24,6 +24,6 @@ try:
     print(res)
     python_db.close_db()  # close db
 except Exception as e:
-    logging.error(traceback.format_exc())
+    print(f'<table border="1" class="container"><tr><td>Duplicate entry for seat number {seat_number} - Please select a different seat number for this concert.</td></tr></table>')
 
 # Use python3 add_new_ticket.py "Exisiting ConcertID" "Existing CustomerID" "Seat Number" "Price (ex: 123.45)"
