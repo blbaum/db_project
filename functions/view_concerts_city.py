@@ -15,13 +15,12 @@ try:
     else:
         city = sys.argv[1]
 
-    # Should probably add artist name to these
     if city == "" or city.lower() == "null":
-        res = python_db.executeSelect('SELECT * FROM Concert;')
+        res = python_db.executeSelect('SELECT ConcertId, VenueName, City, ConcertDate, Concert.ArtistId, ArtistName FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId;')
     else:
         city = city.replace("'", "''")
-        res = python_db.executeSelect("SELECT * FROM Concert WHERE City = '" + city + "';")
-    
+        res = python_db.executeSelect('SELECT ConcertId, VenueName, City, ConcertDate, Concert.ArtistId, ArtistName FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId WHERE City = "' + city + '";')
+
     print("<h3 class='container'>Concerts:</h3>")
     print(res)
     python_db.close_db()  # close db

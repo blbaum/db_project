@@ -18,8 +18,8 @@ try:
     values = "'"+ concert_id + "','" + customer_id + "','" + seat_number + "','" + price + "'"
 
     python_db.insert("Ticket (ConcertID, CustomerID, SeatNumber, Price)", values)
-    # Can probably make this prettier by doing a join to show concert and customer info instead of just IDs
-    res = python_db.executeSelect('SELECT * FROM Ticket;')
+    # terrible one liner but it works
+    res = python_db.executeSelect('SELECT TicketId, Ticket.CustomerId, CustomerName, ArtistName, VenueName, City, ConcertDate, SeatNumber, Price FROM Ticket JOIN Concert ON Ticket.ConcertID = Concert.ConcertId JOIN Artist ON Concert.ArtistId = Artist.ArtistId JOIN Customer ON Ticket.CustomerID = Customer.CustomerId ORDER BY TicketId;')
     print("<h3 class='container'>Tickets:</h3>")
     print(res)
     python_db.close_db()  # close db
