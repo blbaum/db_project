@@ -20,14 +20,14 @@
         // $concert_date = escapeshellarg($_POST['concert_date']);
         // $artist_id = escapeshellarg($_POST['artist_id']);
 
-        $command = 'python3 top_artists_revenue.py ';
+        $script = dirname(__DIR__) . '/functions/top_artists_revenue.py';
+        $command = 'python3 ' . escapeshellarg($script);
 
         // Remove dangerous characters from command to protect web server
-        $escaped_command = escapeshellcmd($command);
         echo "<p>Top Artists Viewed</p>"; 
         
-        $output = shell_exec($escaped_command . ' 2>&1');
-        // echo $output;           
+        $output = shell_exec($command . ' 2>&1');
+        echo $output;           
     }
     ?>
 
