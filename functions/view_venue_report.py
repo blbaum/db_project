@@ -25,9 +25,9 @@ try:
                   "JOIN Artist ON Concert.ArtistId = Artist.ArtistId "
                   "LEFT JOIN Ticket ON Ticket.ConcertId = Concert.ConcertId ")
 
-    group_order = ("GROUP BY Concert.ConcertId, Artist.ArtistName, Venue.VenueName, Venue.City, "
-                   "Concert.ConcertDate, Venue.Capacity "
-                   "ORDER BY PercentFull DESC")
+    group_order = (" GROUP BY Concert.ConcertId, Artist.ArtistName, Venue.VenueName, Venue.City, "
+                    "Concert.ConcertDate, Venue.Capacity "
+                    "ORDER BY PercentFull DESC")
 
     if venue_id == "" or venue_id.lower() == "null":
         res = python_db.executeSelect(base_query + group_order + ";")

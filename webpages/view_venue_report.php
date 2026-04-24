@@ -37,7 +37,7 @@
         if ($venue_id == "''") {
             echo "<p class='container'>Report for all venues:</p>";
         } else {
-            echo "<p class='container'>Report for $venue_id:</p>";
+            echo "<p class='container'>Report for venue id: $venue_id:</p>";
         }
         $output = shell_exec($command . ' 2>&1');
         echo $output;          
