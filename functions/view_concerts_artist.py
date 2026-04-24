@@ -12,7 +12,11 @@ try:
     # insert into item tables by getting the values passed from PHP
     artist_id = sys.argv[1]
 
-    query = "SELECT ArtistName, VenueName, City, ConcertDate FROM Artist JOIN Concert ON Artist.ArtistId = Concert.ArtistId WHERE Artist.ArtistId = " + artist_id + ";"
+    query = ("SELECT ArtistName, VenueName, City, ConcertDate "
+             "FROM Artist "
+             "JOIN Concert ON Artist.ArtistId  = Concert.ArtistId "
+             "JOIN Venue   ON Concert.VenueId  = Venue.VenueId "
+             "WHERE Artist.ArtistId = " + artist_id + ";")
 
     res = python_db.executeSelect(query)
     print("<h3 class='container'>Concerts for Artist:</h3>")

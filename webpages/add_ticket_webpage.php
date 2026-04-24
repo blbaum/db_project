@@ -15,7 +15,7 @@
                         $project_root = dirname(__DIR__);
                         $creds = json_decode(file_get_contents($project_root . '/credentials.json'), true);
                         $mysqli = new mysqli($creds['hostname'], $creds['user'], $creds['password'], $creds['database']);
-                        $result = $mysqli->query('SELECT ArtistName, ConcertId, VenueName, ConcertDate FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId ORDER BY VenueName');
+                        $result = $mysqli->query('SELECT ArtistName, ConcertId, VenueName, ConcertDate FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId JOIN Venue ON Concert.VenueId = Venue.VenueId ORDER BY VenueName');
                         while ($row = $result->fetch_assoc()) {
                             echo '<option value="' . ($row['ConcertId']) . '">' . htmlspecialchars($row['ArtistName']) . ' (' . htmlspecialchars($row['VenueName']) . ' - ' . htmlspecialchars($row['ConcertDate']) . ')</option>';
                         }
