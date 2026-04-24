@@ -36,7 +36,7 @@
                         $mysqli->close();
                         ?>
                     </select><br>
-                    Seat Number: <input type="text" name="seat_number" placeholder = "A1, B2, etc." required><br>
+                    Seat Number(s), Comma Separate to Add Multiple: <input type="text" name="seat_number" placeholder = "A1, B2, etc." required><br>
                     Price: <input type="number" name="price" step="0.01" placeholder="0.00" required><br>
                     <input name="submit" type="submit" value="Add Ticket">
             </form>
