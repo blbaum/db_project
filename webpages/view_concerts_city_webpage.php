@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>🎨 View Concerts</title>
+    <title>🏙️ View Concerts</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
                     $creds = json_decode(file_get_contents($project_root . '/credentials.json'), true);
                     $mysqli = new mysqli($creds['hostname'], $creds['user'], $creds['password'], $creds['database']);
                     echo '<option value="">All Cities</option>';
-                    $result = $mysqli->query('SELECT DISTINCT City FROM Concert ORDER BY City');
+                    $result = $mysqli->query('SELECT DISTINCT City FROM Venue ORDER BY City');
                     while ($row = $result->fetch_assoc()) {
                         echo '<option value="' . ($row['City']) . '">' . htmlspecialchars($row['City']) . '</option>';
                     }

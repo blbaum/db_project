@@ -15,11 +15,16 @@ try:
     else:
         city = sys.argv[1]
 
+    base_query = ("SELECT ConcertId, VenueName, City, ConcertDate, Concert.ArtistId, ArtistName "
+                  "FROM Concert "
+                  "JOIN Artist ON Concert.ArtistId = Artist.ArtistId "
+                  "JOIN Venue  ON Concert.VenueId  = Venue.VenueId")
+
     if city == "" or city.lower() == "null":
-        res = python_db.executeSelect('SELECT ConcertId, VenueName, City, ConcertDate, Concert.ArtistId, ArtistName FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId;')
+        res = python_db.executeSelect(base_query + ";")
     else:
         city = city.replace("'", "''")
-        res = python_db.executeSelect('SELECT ConcertId, VenueName, City, ConcertDate, Concert.ArtistId, ArtistName FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId WHERE City = "' + city + '";')
+        res = python_db.executeSelect(base_query + ' WHERE Venue.City = "' + city + '";')
 
     print("<h3 class='container'>Concerts:</h3>")
     print(res)

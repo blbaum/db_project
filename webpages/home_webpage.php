@@ -15,6 +15,7 @@
             <div class="row"><a href="view_concerts_artist_webpage.php" class="item">View Concerts - Artist 🎨 </a></div>
             <div class="row"><a href="view_customer_spending_webpage.php" class="item">View Customer Spending 💰 </a></div>
             <div class="row"><a href="top_artists_revenue_webpage.php" class="item">Top Artists - Revenue 💵 </a></div>
+            <div class="row"><a href="view_venue_report.php" class="item">Venue Report 📊 </a></div>
         </div>
        <p>Concert Management System</p>
     </div>

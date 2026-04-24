@@ -11,7 +11,7 @@ try:
     
     # insert into item tables by getting the values passed from PHP
     if len(sys.argv) < 2:
-        city = ""
+        customer_id = ""
     else:
         customer_id = sys.argv[1]
 

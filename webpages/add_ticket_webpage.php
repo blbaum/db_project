@@ -15,7 +15,7 @@
                         $project_root = dirname(__DIR__);
                         $creds = json_decode(file_get_contents($project_root . '/credentials.json'), true);
                         $mysqli = new mysqli($creds['hostname'], $creds['user'], $creds['password'], $creds['database']);
-                        $result = $mysqli->query('SELECT ArtistName, ConcertId, VenueName, ConcertDate FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId ORDER BY VenueName');
+                        $result = $mysqli->query('SELECT ArtistName, ConcertId, VenueName, ConcertDate FROM Concert JOIN Artist ON Concert.ArtistId = Artist.ArtistId JOIN Venue ON Concert.VenueId = Venue.VenueId ORDER BY VenueName');
                         while ($row = $result->fetch_assoc()) {
                             echo '<option value="' . ($row['ConcertId']) . '">' . htmlspecialchars($row['ArtistName']) . ' (' . htmlspecialchars($row['VenueName']) . ' - ' . htmlspecialchars($row['ConcertDate']) . ')</option>';
                         }
@@ -36,7 +36,7 @@
                         $mysqli->close();
                         ?>
                     </select><br>
-                    Seat Number: <input type="text" name="seat_number" placeholder = "A1, B2, etc." required><br>
+                    Seat Number(s), Comma Separate to Add Multiple: <input type="text" name="seat_number" placeholder = "A1, B2, etc." required><br>
                     Price: <input type="number" name="price" step="0.01" placeholder="0.00" required><br>
                     <input name="submit" type="submit" value="Add Ticket">
             </form>
